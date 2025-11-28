@@ -65,11 +65,12 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Code\Patches\NetAI_GetColor_Node_Patch.cs" />
-        <Compile Include="Code\Patches\NetAI_GetColor_Segment_Patch.cs" />
+        <Compile Include="Code\Patches\NetManagerCreateSegmentPatch.cs" />
+        <Compile Include="Code\Patches\ToolRenderOverlayPatch.cs" />
         <Compile Include="Code\PathHighlightLoading.cs" />
         <Compile Include="Code\PathHighlightMod.cs" />
-        <Compile Include="Code\Settings.cs" />
+        <Compile Include="Code\PathHighlightManager.cs" />
+        <Compile Include="Code\PathHighlightSettings.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
     <ItemGroup>
@@ -85,7 +86,7 @@
     -->
     <Target Name="DeployToModDirectory" AfterTargets="Build">
         <PropertyGroup>
-            <DeployDir>$(LOCALAPPDATA)/Colossal Order/Cities_Skylines/Addons/Mods/$(SolutionName)/source </DeployDir>
+            <DeployDir>$(LOCALAPPDATA)/Colossal Order/Cities_Skylines/Addons/Mods/PathHighlightOverlay/source </DeployDir>
         </PropertyGroup>
         <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(DeployDir)" />
     </Target>
