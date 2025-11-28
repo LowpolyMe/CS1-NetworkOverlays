@@ -6,6 +6,6 @@ namespace PathHighlightOverlay
     {
         public string Name => "Path Highlight Overlay";
         public string Description =>
-            "Highlights all pedestrian paths (including invisible ones) while traffic info view is toggled.";
+            "Highlights all pedestrian paths (including invisible ones).";
     }
 }

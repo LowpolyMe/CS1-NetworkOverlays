@@ -70,6 +70,7 @@
         <Compile Include="Code\PathHighlightLoading.cs" />
         <Compile Include="Code\PathHighlightMod.cs" />
         <Compile Include="Code\PathHighlightManager.cs" />
+        <Compile Include="Code\PathHighlightRenderer.cs" />
         <Compile Include="Code\PathHighlightSettings.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>

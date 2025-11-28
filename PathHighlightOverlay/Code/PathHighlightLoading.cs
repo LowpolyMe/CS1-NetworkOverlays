@@ -37,6 +37,14 @@ namespace PathHighlightOverlay
         public override void OnLevelLoaded(LoadMode mode)
         {
             base.OnLevelLoaded(mode);
+            
+            if (_controllerObject == null)
+            {
+                _controllerObject = new GameObject("PathHighlightRenderer");
+                _controllerObject.AddComponent<PathHighlightRenderer>();
+                GameObject.DontDestroyOnLoad(_controllerObject);
+            }
+            
             PathHighlightManager.Instance.RebuildCache();
 
         }

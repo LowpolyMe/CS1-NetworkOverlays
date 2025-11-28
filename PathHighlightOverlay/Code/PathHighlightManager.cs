@@ -8,7 +8,7 @@ namespace PathHighlightOverlay.Code
 {
     public class PathHighlightManager
     {
-        
+        public static bool IsEnabled { get; set; } = false;
         private static readonly PathHighlightManager _instance = new PathHighlightManager();
         public static PathHighlightManager Instance => _instance;
 
@@ -84,10 +84,9 @@ namespace PathHighlightOverlay.Code
         /// </summary>
         public void RenderIfActive(RenderManager.CameraInfo cameraInfo)
         {
-            var infoManager = Singleton<InfoManager>.instance;
-            if (infoManager.CurrentMode != InfoManager.InfoMode.Traffic)
+            if (!IsEnabled)
                 return;
-
+            
             NetManager netManager = NetManager.instance;
             Color col = PathHighlightSettings.HighlightColor;
 
@@ -123,7 +122,7 @@ namespace PathHighlightOverlay.Code
             NetSegment.CalculateMiddlePoints(
                 bezier.a, segment.m_startDirection,
                 bezier.d, segment.m_endDirection,
-                false, false, out bezier.b, out bezier.c);
+                true, true, out bezier.b, out bezier.c);
 
             // same params NetTool uses
             Singleton<RenderManager>.instance.OverlayEffect.DrawBezier(
