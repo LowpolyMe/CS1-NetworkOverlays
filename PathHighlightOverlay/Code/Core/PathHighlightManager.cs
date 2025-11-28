@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using ColossalFramework;
 using ColossalFramework.Math;
+using PathHighlightOverlay.Code.Settings;
 using UnityEngine;
 
 
-namespace PathHighlightOverlay.Code
+namespace PathHighlightOverlay.Code.Core
 {
     public class PathHighlightManager
     {
@@ -132,7 +133,7 @@ namespace PathHighlightOverlay.Code
                 info.m_halfWidth * 2f,
                 -100000f,     // no cut at start
                 -100000f,     // no cut at end
-                -1f,          // minY
+                -100f,          // minY
                 1280f,        // maxY
                 false,
                 false);

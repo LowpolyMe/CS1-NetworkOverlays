@@ -3,6 +3,7 @@ using ColossalFramework.Math;
 using UnityEngine;
 using System.Reflection;
 using System;
+using PathHighlightOverlay.Code.Core;
 
 
 namespace PathHighlightOverlay.Code.Patches
@@ -60,7 +61,6 @@ namespace PathHighlightOverlay.Code.Patches
         [HarmonyPatch]
         public static class NetManagerReleaseSegmentPatch
         {
-            // Pick the overload: void ReleaseSegment(ushort segment, bool keepNodes)
             static MethodBase TargetMethod()
             {
                 return typeof(NetManager).GetMethod(
@@ -70,8 +70,7 @@ namespace PathHighlightOverlay.Code.Patches
                     new[] { typeof(ushort), typeof(bool) },
                     null);
             }
-
-            // We only need the segment id, keepNodes is irrelevant for us
+            
             static void Prefix(ushort segment, bool keepNodes)
             {
                 try

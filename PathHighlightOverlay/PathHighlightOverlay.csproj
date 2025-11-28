@@ -65,13 +65,13 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Code\Core\PathHighlightActivationHandler.cs" />
+        <Compile Include="Code\Core\PathHighlightManager.cs" />
+        <Compile Include="Code\Lifecycle\PathHighlightLoading.cs" />
         <Compile Include="Code\Patches\NetManagerCreateSegmentPatch.cs" />
         <Compile Include="Code\Patches\ToolRenderOverlayPatch.cs" />
-        <Compile Include="Code\PathHighlightLoading.cs" />
-        <Compile Include="Code\PathHighlightMod.cs" />
-        <Compile Include="Code\PathHighlightManager.cs" />
-        <Compile Include="Code\PathHighlightRenderer.cs" />
-        <Compile Include="Code\PathHighlightSettings.cs" />
+        <Compile Include="Code\Settings\PathHighlightOptions.cs" />
+        <Compile Include="Code\Settings\PathHighlightSettings.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
     <ItemGroup>
