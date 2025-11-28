@@ -1,6 +1,7 @@
 using HarmonyLib;
 using ColossalFramework;
 using PathHighlightOverlay.Code;
+using PathHighlightOverlay.Code.Core;
 
 namespace PathHighlightOverlay.Code.Patches
 {
@@ -9,7 +10,7 @@ namespace PathHighlightOverlay.Code.Patches
     {
         static void Postfix(RenderManager.CameraInfo cameraInfo)
         {
-            PathHighlightManager.Instance.RenderIfActive(cameraInfo);
+            PathHighlightManager.Instance?.RenderIfActive(cameraInfo);
         }
     }
 }
