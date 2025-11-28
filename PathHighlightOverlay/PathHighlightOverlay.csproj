@@ -70,25 +70,40 @@
         <Compile Include="Code\Lifecycle\PathHighlightLoading.cs" />
         <Compile Include="Code\Patches\NetManagerCreateSegmentPatch.cs" />
         <Compile Include="Code\Patches\ToolRenderOverlayPatch.cs" />
+        <Compile Include="Code\Settings\PathHighlightConfig.cs" />
         <Compile Include="Code\Settings\PathHighlightOptions.cs" />
-        <Compile Include="Code\Settings\PathHighlightSettings.cs" />
+        <Compile Include="Code\Settings\PathHighlightSettingsLoader.cs" />
+        <Compile Include="Code\Utility\ModResources.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
     </ItemGroup>
+    <ItemGroup>
+      <Content Include="Resources\HueGradient.png" />
+    </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
-    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-         Other similar extension points exist, see Microsoft.Common.targets.
-    <Target Name="BeforeBuild">
-    </Target>
-    <Target Name="AfterBuild">
-    </Target>
-    -->
+   
     <Target Name="DeployToModDirectory" AfterTargets="Build">
+        <!-- Mod output path -->
         <PropertyGroup>
-            <DeployDir>$(LOCALAPPDATA)/Colossal Order/Cities_Skylines/Addons/Mods/PathHighlightOverlay/source </DeployDir>
+            <DeployDir>$(LOCALAPPDATA)\Colossal Order\Cities_Skylines\Addons\Mods\PathHighlightOverlay</DeployDir>
         </PropertyGroup>
+
+        <!-- Ensure destination exists -->
+        <MakeDir Directories="$(DeployDir)\Resources" />
+
+        <!-- Copy the compiled DLL -->
         <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(DeployDir)" />
+
+        <!-- Copy resources (PNG, etc.) -->
+        <ItemGroup>
+            <ResourceFiles Include="Resources\**\*" />
+        </ItemGroup>
+
+        <Copy SourceFiles="@(ResourceFiles)"
+              DestinationFolder="$(DeployDir)\Resources\%(RecursiveDir)"
+              SkipUnchangedFiles="true" />
+
     </Target>
 </Project>

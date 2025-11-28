@@ -1,3 +1,4 @@
+using ColossalFramework;
 using HarmonyLib;
 using ICities;
 using PathHighlightOverlay.Code.Core;
@@ -8,8 +9,9 @@ namespace PathHighlightOverlay.Code.Lifecycle
     public class PathHighlightLoading : LoadingExtensionBase
     {
         private GameObject _controllerObject;
-        private static bool _patched;
         private Harmony _harmony;
+        private static bool _patched;
+        
         private const string HarmonyId = "com.lowpolyme.PathHighlightOverlay";
 
         public override void OnCreated(ILoading loading)
@@ -17,12 +19,13 @@ namespace PathHighlightOverlay.Code.Lifecycle
             base.OnCreated(loading);
             PatchHarmony();
         }
+
         public override void OnReleased()
         {
             base.OnReleased();
             UnpatchHarmony();
         }
-        
+
         public override void OnLevelLoaded(LoadMode mode)
         {
             base.OnLevelLoaded(mode);
@@ -36,8 +39,7 @@ namespace PathHighlightOverlay.Code.Lifecycle
             DestroyRendererObject();
             PathHighlightManager.Instance.Clear();
         }
-        
-        
+
         #region Helpers
 
         private void PatchHarmony()
@@ -59,6 +61,7 @@ namespace PathHighlightOverlay.Code.Lifecycle
                 _harmony = null;
             }
         }
+
         private void CreateRendererObject()
         {
             if (_controllerObject != null) return;
@@ -75,7 +78,7 @@ namespace PathHighlightOverlay.Code.Lifecycle
             GameObject.Destroy(_controllerObject);
             _controllerObject = null;
         }
-        
+
         #endregion
     }
 }

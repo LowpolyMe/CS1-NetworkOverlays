@@ -8,7 +8,8 @@ namespace PathHighlightOverlay.Code.Core
         {
             if (Input.GetKeyDown(KeyCode.F9))
             {
-                PathHighlightManager.IsEnabled = !PathHighlightManager.IsEnabled;
+                PathHighlightManager.Instance.IsEnabled = !PathHighlightManager.Instance.IsEnabled;
+
             }
         }
         //todo: also activate when current tool is road draw tool IF enabled in options menu

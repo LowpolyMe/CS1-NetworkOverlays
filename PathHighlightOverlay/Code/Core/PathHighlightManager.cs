@@ -9,12 +9,33 @@ namespace PathHighlightOverlay.Code.Core
 {
     public class PathHighlightManager
     {
-        public static bool IsEnabled { get; set; } = false;
+        private bool _isEnabled;
+
+        public bool IsEnabled
+        {
+            get => _isEnabled;
+            set
+            {
+                if (_isEnabled == value)
+                    return;
+
+                _isEnabled = value;
+
+                if (_isEnabled)
+                {
+                    RebuildCache();
+                }
+                else
+                {
+                    Clear();
+                }
+            }
+        }
         private static readonly PathHighlightManager _instance = new PathHighlightManager();
         public static PathHighlightManager Instance => _instance;
 
         private readonly HashSet<ushort> _pathSegments = new HashSet<ushort>();
-
+        private Color highlightColor;
         private PathHighlightManager() { }
 
         public void Clear()
@@ -25,7 +46,7 @@ namespace PathHighlightOverlay.Code.Core
         public void RebuildCache()
         {
             _pathSegments.Clear();
-
+            highlightColor = Color.HSVToRGB(PathHighlightSettingsLoader.Config.Hue,1f,1f);
             NetManager netManager = NetManager.instance;
             var segments = netManager.m_segments;
 
@@ -79,17 +100,13 @@ namespace PathHighlightOverlay.Code.Core
         }
 
 
-        /// <summary>
-        /// Called once per frame with the current CameraInfo.
-        /// Currently only renders when Traffic info view is active.
-        /// </summary>
         public void RenderIfActive(RenderManager.CameraInfo cameraInfo)
         {
-            if (!IsEnabled)
+            if (!_isEnabled)
                 return;
             
             NetManager netManager = NetManager.instance;
-            Color col = PathHighlightSettings.HighlightColor;
+
 
             foreach (ushort id in _pathSegments)
             {
@@ -101,17 +118,14 @@ namespace PathHighlightOverlay.Code.Core
                 RenderPedSegmentOverlay(
                     cameraInfo,
                     ref segment,
-                    col,  
-                    col 
+                    highlightColor
                 );
             }
         }
-        //temporary test to try and draw bridges and tunnels, too
         private static void RenderPedSegmentOverlay(
             RenderManager.CameraInfo cameraInfo,
             ref NetSegment segment,
-            Color color,
-            Color color2)
+            Color color)
         {
             NetInfo info = segment.Info;
             if (info == null)
