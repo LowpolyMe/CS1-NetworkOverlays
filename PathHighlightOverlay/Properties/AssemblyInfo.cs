@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("PathHighlightOverlay")]
-[assembly: AssemblyDescription("Cities: Skylines mod that highlights pure pedestrian paths in the Traffic info view.")]
+[assembly: AssemblyDescription("Cities: Skylines mod that highlights pedestrian paths in the Traffic info view.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Lowpolyme")]
 [assembly: AssemblyProduct("PathHighlightOverlay")] 
