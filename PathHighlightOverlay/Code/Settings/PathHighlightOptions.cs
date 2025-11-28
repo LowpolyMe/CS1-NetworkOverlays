@@ -1,4 +1,3 @@
-using ColossalFramework;
 using ColossalFramework.UI;
 using ICities;
 using PathHighlightOverlay.Code.Utility;
@@ -6,86 +5,82 @@ using UnityEngine;
 
 namespace PathHighlightOverlay.Code.Settings
 {
-    public class PathHighlightOptions: IUserMod
-    { 
-       
-        public string Name => "Path Highlight Overlay";
-        private Color _currentColor;
-        public string Description =>
-        "Highlights all pedestrian paths (including invisible ones).";
+public class PathHighlightOptions : IUserMod
+{
+    public string Name => "Path Highlight Overlay";
+    public string Description => "Highlights all pedestrian paths (including invisible ones).";
 
-        //private UIPanel _colorPreview;
-        private Texture2D _hueTexture;
-        private UISlider _hueSlider;
+    private Texture2D _hueTexture;
+    private UISlider _hueSlider;
+    private UITextureSprite _hueBar;
+
+    public void OnSettingsUI(UIHelperBase helper)
+    {
+        var group = helper.AddGroup("Path Highlight Overlay") as UIHelper;
+        if (group == null) return;
+
+        var panel = group.self as UIPanel;
+        if (panel == null) return;
+
+        var label = panel.AddUIComponent<UILabel>();
+        label.text = "Highlight color";
+
+        // Load gradient texture
+        if (_hueTexture == null)
+            _hueTexture = ModResources.LoadTexture("HueGradient.png");
+
+        float initialHue = PathHighlightSettingsLoader.Config.Hue;
+
+        // Create slider
+        var sliderObj = group.AddSlider(
+            "Highlight hue",
+            0f,
+            1f,
+            0.01f,
+            initialHue,
+            OnSliderValueChanged);   
+        _hueSlider = sliderObj as UISlider;
+        if (_hueSlider == null) return;
         
-        public void OnSettingsUI(UIHelperBase helper)
-        {
-            var group = helper.AddGroup("Path Highlight Overlay") as UIHelper;
-            if (group == null) return;
+        _hueSlider.backgroundSprite = string.Empty;
+        _hueSlider.color = Color.white; 
 
-            var panel = group.self as UIPanel;
-            if (panel == null) return;
-
-            // Label
-            var label = panel.AddUIComponent<UILabel>();
-            label.text = "Highlight color";
-            
-            if (_hueTexture == null)
-                _hueTexture = ModResources.LoadTexture("HueGradient.png");
-
-            // Get initial color
-            float initialHue = PathHighlightSettingsLoader.Config.Hue;
-            var initialColor = ColorFromHue(initialHue);
-            
-            
-            // Slider
-            var sliderObj = group.AddSlider("Highlight hue", 0f, 1f, 0.01f, initialHue, OnSliderValueChanged);
-            _hueSlider = sliderObj as UISlider;
-            UpdateSliderTrackColor(initialHue);
-            
-            if (_hueTexture != null && _hueSlider != null)
-            {
-                var hueBar = panel.AddUIComponent<UITextureSprite>();
-                hueBar.texture = _hueTexture;
-                hueBar.size = new Vector2(_hueSlider.size.x, 32f);
-            }
-            
-
-            // Reset button
-            /*group.AddButton("Reset to default", () => {
-                PathHighlightSettingsLoader.Reset();
-            });*/
-        }
-        private void OnSliderValueChanged(float value)
-        {
-            UpdateHue(value);
-            UpdateSliderTrackColor(value); 
-        }
         
-        private void UpdateSliderTrackColor(float hue)
+        if (_hueTexture != null)
         {
-            Color color = ColorFromHue(hue);
-            if (_hueSlider != null)
-            {
-                _hueSlider.color = color; // this tints the background
-            }
+            _hueSlider.clipChildren = true; 
+            _hueBar = _hueSlider.AddUIComponent<UITextureSprite>();
+            _hueBar.texture = _hueTexture;
+            
+            _hueBar.size = _hueSlider.size;
+            _hueBar.relativePosition = Vector3.zero;
+            _hueBar.zOrder = 0;
 
-            if (_hueSlider?.thumbObject is UISprite thumb)
+            // Ensure the thumb is above the gradient
+            if (_hueSlider.thumbObject != null)
             {
-                thumb.color = color; // Optional: knob color
+                _hueSlider.thumbObject.zOrder = _hueBar.zOrder + 1;
             }
         }
-        private void UpdateHue(float value)
-        {
-            PathHighlightSettingsLoader.Config.Hue = value;
-            PathHighlightSettingsLoader.Save();
-            _currentColor = ColorFromHue(value);
-        }
-
-        private Color ColorFromHue(float hue)
-        {
-            return Color.HSVToRGB(hue, 1f, 1f);
-        }
         
+        group.AddButton("Reset to default", () =>
+        {
+            PathHighlightSettingsLoader.Reset();
+            float resetHue = PathHighlightSettingsLoader.Config.Hue;
+            _hueSlider.value = resetHue;
+        });
     }
+
+    private void OnSliderValueChanged(float value)
+    {
+        PathHighlightSettingsLoader.Config.Hue = value;
+        PathHighlightSettingsLoader.Save();
+    }
+
+    private Color ColorFromHue(float hue)
+    {
+        return Color.HSVToRGB(hue, 1f, 1f);
+    }
+}
+
 }
