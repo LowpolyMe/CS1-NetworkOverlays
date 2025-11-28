@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using ColossalFramework;
 using ColossalFramework.Math;
-using PathHighlightOverlay.Code.Settings;
+using NetworkHighlightOverlay.Code.ModOptions;
 using UnityEngine;
 
 
-namespace PathHighlightOverlay.Code.Core
+namespace NetworkHighlightOverlay.Code.Core
 {
-    public class PathHighlightManager
+    public class Manager
     {
+        private Color _highlightColor;
         private bool _isEnabled;
 
         public bool IsEnabled
@@ -31,22 +32,26 @@ namespace PathHighlightOverlay.Code.Core
                 }
             }
         }
-        private static readonly PathHighlightManager _instance = new PathHighlightManager();
-        public static PathHighlightManager Instance => _instance;
+        private static readonly Manager _instance = new Manager();
+        public static Manager Instance => _instance;
 
         private readonly HashSet<ushort> _pathSegments = new HashSet<ushort>();
-        private Color highlightColor;
-        private PathHighlightManager() { }
+
+        private Manager()
+        {
+            _highlightColor = ModSettings.PedestrianPathColor;
+            ModSettings.SettingsChanged += _ => _highlightColor = ModSettings.PedestrianPathColor;
+        }
 
         public void Clear()
         {
             _pathSegments.Clear();
         }
         
+
         public void RebuildCache()
         {
             _pathSegments.Clear();
-            highlightColor = Color.HSVToRGB(PathHighlightSettingsLoader.Config.Hue,1f,1f);
             NetManager netManager = NetManager.instance;
             var segments = netManager.m_segments;
 
@@ -118,7 +123,7 @@ namespace PathHighlightOverlay.Code.Core
                 RenderPedSegmentOverlay(
                     cameraInfo,
                     ref segment,
-                    highlightColor
+                    _highlightColor
                 );
             }
         }

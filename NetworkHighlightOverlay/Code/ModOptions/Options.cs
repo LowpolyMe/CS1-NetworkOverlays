@@ -1,11 +1,11 @@
 using ColossalFramework.UI;
 using ICities;
-using PathHighlightOverlay.Code.Utility;
+using NetworkHighlightOverlay.Code.Utility;
 using UnityEngine;
 
-namespace PathHighlightOverlay.Code.Settings
+namespace NetworkHighlightOverlay.Code.ModOptions
 {
-public class PathHighlightOptions : IUserMod
+public class Options : IUserMod
 {
     public string Name => "Path Highlight Overlay";
     public string Description => "Highlights all pedestrian paths (including invisible ones).";
@@ -29,7 +29,7 @@ public class PathHighlightOptions : IUserMod
         if (_hueTexture == null)
             _hueTexture = ModResources.LoadTexture("HueGradient.png");
 
-        float initialHue = PathHighlightSettingsLoader.Config.Hue;
+        float initialHue =  ModSettings.PedestrianPathsHue;
 
         // Create slider
         var sliderObj = group.AddSlider(
@@ -56,25 +56,23 @@ public class PathHighlightOptions : IUserMod
             _hueBar.relativePosition = Vector3.zero;
             _hueBar.zOrder = 0;
 
-            // Ensure the thumb is above the gradient
+
             if (_hueSlider.thumbObject != null)
             {
                 _hueSlider.thumbObject.zOrder = _hueBar.zOrder + 1;
             }
         }
         
-        group.AddButton("Reset to default", () =>
+        /*group.AddButton("Reset to default", () =>
         {
-            PathHighlightSettingsLoader.Reset();
-            float resetHue = PathHighlightSettingsLoader.Config.Hue;
-            _hueSlider.value = resetHue;
-        });
+            ModOptions.ResetToDefaults();
+            _hueSlider.value = ModOptions.Hue;
+        });*/
     }
 
     private void OnSliderValueChanged(float value)
     {
-        PathHighlightSettingsLoader.Config.Hue = value;
-        PathHighlightSettingsLoader.Save();
+        ModSettings.PedestrianPathsHue = value;
     }
 
     private Color ColorFromHue(float hue)
