@@ -39,8 +39,17 @@ namespace NetworkHighlightOverlay.Code.Core
 
         private Manager()
         {
+            ModSettings.SettingsChanged += OnSettingsChanged;
         }
-
+        
+        private void OnSettingsChanged(Config _)
+        {
+            if (_isEnabled)
+                RebuildCache();
+            else
+                Clear();
+        }
+        
         public void Clear()
         {
             _highlightedSegments.Clear();
