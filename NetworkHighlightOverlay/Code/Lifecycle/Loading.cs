@@ -1,8 +1,8 @@
-using ColossalFramework;
 using HarmonyLib;
 using ICities;
 using NetworkHighlightOverlay.Code.Core;
 using UnityEngine;
+using NetworkHighlightOverlay.Code.UI;
 
 namespace NetworkHighlightOverlay.Code.Lifecycle
 {
@@ -31,6 +31,8 @@ namespace NetworkHighlightOverlay.Code.Lifecycle
             base.OnLevelLoaded(mode);
             CreateRendererObject();
             Manager.Instance.RebuildCache();
+            
+            UuiButtonController.RegisterUui();
         }
 
         public override void OnLevelUnloading()
@@ -80,5 +82,6 @@ namespace NetworkHighlightOverlay.Code.Lifecycle
         }
 
         #endregion
+        
     }
 }

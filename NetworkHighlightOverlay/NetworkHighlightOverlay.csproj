@@ -39,16 +39,23 @@
         </Reference>
             <Reference Include="CitiesHarmony.API, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
               <HintPath>..\packages\CitiesHarmony.API.2.2.0\lib\net35\CitiesHarmony.API.dll</HintPath>
+              <Private>False</Private>
             </Reference>
             <Reference Include="CitiesHarmony.Harmony, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
               <HintPath>..\packages\CitiesHarmony.Harmony.2.2.2\lib\net35\CitiesHarmony.Harmony.dll</HintPath>
+              <Private>False</Private>
             </Reference>
             <Reference Include="ColossalManaged">
               <HintPath>S:\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ColossalManaged.dll</HintPath>
+              <Private>False</Private>
             </Reference>
         <Reference Include="ICities">
             <HintPath>S:\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ICities.dll</HintPath>
             <Private>False</Private>
+        </Reference>
+        <Reference Include="UnifiedUILib, Version=2.2.12.31246, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>packages\UnifiedUILib.2.2.12\lib\net35\UnifiedUILib.dll</HintPath>
+          <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine">
             <HintPath>S:\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.dll</HintPath>
@@ -56,13 +63,14 @@
         </Reference>
         <Reference Include="UnityEngine.UI">
           <HintPath>S:\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.UI.dll</HintPath>
+          <Private>False</Private>
         </Reference>
     </ItemGroup>
     <ItemGroup>
         <Reference Include="System"/>
         <Reference Include="System.Core"/>
         <Reference Include="System.Data"/>
-        <Reference Include="System.Xml"/>
+        <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Code\Core\ActivationHandler.cs" />
@@ -76,6 +84,7 @@
         <Compile Include="Code\ModOptions\SettingsLoader.cs" />
         <Compile Include="Code\Utility\ColorConversion.cs" />
         <Compile Include="Code\Utility\ModResources.cs" />
+        <Compile Include="Code\UUIImplementation\UUIButtonController.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
     <ItemGroup>
