@@ -317,11 +317,11 @@ namespace NetworkHighlightOverlay.Code.ModOptions
         public static void ResetToDefaults()
         {
             // Hues
-            _config.PedestrianPathsHue = 0.85f;
-            _config.RoadsHue           = 0.85f;
-            _config.HighwaysHue        = 0.85f;
-            _config.TrainTracksHue     = 0.85f;
-            _config.MetroTracksHue     = 0.85f;
+            _config.PedestrianPathsHue = 0.25f;
+            _config.RoadsHue           = 0.5f;
+            _config.HighwaysHue        = 0.65f;
+            _config.TrainTracksHue     = 0.1f;
+            _config.MetroTracksHue     = 0.01f;
             _config.TramTracksHue      = 0.85f;
             _config.MonorailHue        = 0.85f;
             _config.CableCarsHue       = 0.85f;
