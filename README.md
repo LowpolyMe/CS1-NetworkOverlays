@@ -1,4 +1,4 @@
-# Network Highlight Overlay
+# Network Highlighter
 
 Network Highlight Overlay is a **Cities: Skylines 1** mod that highlights selected network types (roads, rails, pedestrian paths, transit infrastructure, bridges, tunnels, etc.) with customizable colors. 
 It is useful for debugging, visual clarity, screenshots, and inspecting hidden / underground / service networks. During my testing, it worked for insivible (workshop) paths, too.
