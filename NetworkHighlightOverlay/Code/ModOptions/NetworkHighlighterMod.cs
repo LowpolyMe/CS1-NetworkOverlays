@@ -12,6 +12,8 @@ namespace NetworkHighlightOverlay.Code.ModOptions
             "Highlights various networks (paths, roads, rails, etc.) including hidden/invisible ones.";
 
         private Texture2D _hueTexture;
+        private Texture2D _valueTexture;
+        private Texture2D _widthTexture;
 
         public void OnSettingsUI(UIHelperBase helper)
         {
@@ -21,10 +23,18 @@ namespace NetworkHighlightOverlay.Code.ModOptions
             {
                 _hueTexture = ModResources.LoadTexture("HueGradient.png");
             }
+            if (_valueTexture == null)
+            {
+                _valueTexture = ModResources.LoadTexture("ValueGradient.png");
+            }
+            if (_widthTexture == null)
+            {
+                _widthTexture = ModResources.LoadTexture("HighlightWidth.png");
+            }
             
             // Some mods (e.g. Skyve) seem to replace the vanilla UIHelper with their own UIHelperBase implementation,
-            // so we cannot rely on UIHelper.self always being available. I solved this by resolving the underlying UIComponent
-            // first, then building our own tabbed UI on top of it. There's probably a more elegant solution out there, but this one works.
+            // so we cannot rely on UIHelper.self always being available. I solved this by resolving the underlying UIComponent first
+            // then building our own tabbed UI on top of it. There's probably a more elegant solution out there, but this one works.
             
             UIComponent rootComponent = UIUtility.TryGetRootComponent(helper);
             if (rootComponent == null)
@@ -61,6 +71,20 @@ namespace NetworkHighlightOverlay.Code.ModOptions
             UIHelper colorsHelper = UIUtility.CreateTab(tabContainer, tabStrip, "Colors", Color.white);
             if (colorsHelper != null)
             {
+                UIUtility.CreateHueSlider(
+                    colorsHelper,
+                    "Highlight Strength",
+                    ModSettings.HighlightStrength,
+                    v => ModSettings.HighlightStrength = v,
+                    _valueTexture);
+                
+                UIUtility.CreateHueSlider(
+                    colorsHelper,
+                    "Highlight Thickness",
+                    ModSettings.HighlightWidth,
+                    v => ModSettings.HighlightWidth = v,
+                    _widthTexture);
+                
                 UIUtility.CreateHueSlider(
                     colorsHelper,
                     "Pedestrian paths",

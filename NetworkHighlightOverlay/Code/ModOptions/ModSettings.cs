@@ -24,6 +24,30 @@ namespace NetworkHighlightOverlay.Code.ModOptions
         
   #region Hues (float) + Colors
 
+        public static float HighlightStrength
+        {
+            get => _config.HighlightStrength;
+            set
+            {
+                if (Mathf.Approximately(_config.HighlightStrength, value))
+                    return;
+
+                _config.HighlightStrength = value;
+                SaveAndRaise();
+            }
+        }
+        public static float HighlightWidth
+        {
+            get => _config.HighlightWidth;
+            set
+            {
+                if (Mathf.Approximately(_config.HighlightWidth, value))
+                    return;
+
+                _config.HighlightWidth = value;
+                SaveAndRaise();
+            }
+        }
         public static float PedestrianPathsHue
         {
             get => _config.PedestrianPathsHue;
@@ -39,7 +63,7 @@ namespace NetworkHighlightOverlay.Code.ModOptions
 
         public static Color PedestrianPathColor
         {
-            get => ColorConversion.FromHue(PedestrianPathsHue);
+            get => ColorConversion.FromHue(PedestrianPathsHue, HighlightStrength);
             set => PedestrianPathsHue = ColorConversion.ToHue(value);
         }
 
@@ -58,7 +82,7 @@ namespace NetworkHighlightOverlay.Code.ModOptions
 
         public static Color RoadsColor
         {
-            get => ColorConversion.FromHue(RoadsHue);
+            get => ColorConversion.FromHue(RoadsHue, HighlightStrength);
             set => RoadsHue = ColorConversion.ToHue(value);
         }
 
@@ -77,7 +101,7 @@ namespace NetworkHighlightOverlay.Code.ModOptions
 
         public static Color HighwaysColor
         {
-            get => ColorConversion.FromHue(HighwaysHue);
+            get => ColorConversion.FromHue(HighwaysHue, HighlightStrength);
             set => HighwaysHue = ColorConversion.ToHue(value);
         }
 
@@ -96,7 +120,7 @@ namespace NetworkHighlightOverlay.Code.ModOptions
 
         public static Color TrainTracksColor
         {
-            get => ColorConversion.FromHue(TrainTracksHue);
+            get => ColorConversion.FromHue(TrainTracksHue, HighlightStrength);
             set => TrainTracksHue = ColorConversion.ToHue(value);
         }
 
@@ -115,7 +139,7 @@ namespace NetworkHighlightOverlay.Code.ModOptions
 
         public static Color MetroTracksColor
         {
-            get => ColorConversion.FromHue(MetroTracksHue);
+            get => ColorConversion.FromHue(MetroTracksHue, HighlightStrength);
             set => MetroTracksHue = ColorConversion.ToHue(value);
         }
 
@@ -134,7 +158,7 @@ namespace NetworkHighlightOverlay.Code.ModOptions
 
         public static Color TramTracksColor
         {
-            get => ColorConversion.FromHue(TramTracksHue);
+            get => ColorConversion.FromHue(TramTracksHue, HighlightStrength);
             set => TramTracksHue = ColorConversion.ToHue(value);
         }
 
@@ -153,7 +177,7 @@ namespace NetworkHighlightOverlay.Code.ModOptions
 
         public static Color MonorailTracksColor
         {
-            get => ColorConversion.FromHue(MonorailTracksHue);
+            get => ColorConversion.FromHue(MonorailTracksHue, HighlightStrength);
             set => MonorailTracksHue = ColorConversion.ToHue(value);
         }
 
@@ -172,7 +196,7 @@ namespace NetworkHighlightOverlay.Code.ModOptions
 
         public static Color CableCarColor
         {
-            get => ColorConversion.FromHue(CableCarsHue);
+            get => ColorConversion.FromHue(CableCarsHue, HighlightStrength);
             set => CableCarsHue = ColorConversion.ToHue(value);
         }
 
@@ -316,6 +340,9 @@ namespace NetworkHighlightOverlay.Code.ModOptions
 
         public static void ResetToDefaults()
         {
+            _config.HighlightStrength  = 1.0f;
+            _config.HighlightWidth     = 1.0f;
+            
             // Hues
             _config.PedestrianPathsHue = 0.25f;
             _config.RoadsHue           = 0.5f;
@@ -325,7 +352,7 @@ namespace NetworkHighlightOverlay.Code.ModOptions
             _config.TramTracksHue      = 0.85f;
             _config.MonorailHue        = 0.85f;
             _config.CableCarsHue       = 0.85f;
-
+            
             // Toggles
             _config.HighlightPedestrianPaths = true;
             _config.HighlightRoads           = true;

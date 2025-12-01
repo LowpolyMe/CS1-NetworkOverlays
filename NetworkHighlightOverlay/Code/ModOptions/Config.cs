@@ -5,14 +5,17 @@ namespace NetworkHighlightOverlay.Code.ModOptions
     [XmlRoot("NetworkNetworkHighlightSettings")]
     public class Config
     {
-        public float PedestrianPathsHue { get; set; } = 0.25f; 
-        public float RoadsHue { get; set; } = 0.5f; 
+        public float HighlightStrength  { get; set; }  = 1f;
+        public float HighlightWidth  { get; set; }     = 1.0f;
+        public float PedestrianPathsHue { get; set; }  = 0.25f; 
+        public float RoadsHue { get; set; }            = 0.5f; 
         public float HighwaysHue { get; set; } = 0.65f; 
         public float TrainTracksHue  { get; set; } = 0.1f;
         public float MetroTracksHue  { get; set; } = 0.01f;
         public float TramTracksHue   { get; set; } = 0.85f;
         public float MonorailHue     { get; set; } = 0.85f;
-        public float CableCarsHue  { get; set; } = 0.85f;
+        public float CableCarsHue  { get; set; } = 0.85f;        
+
         
         public bool HighlightPedestrianPaths { get; set; } = true; 
         public bool HighlightRoads { get; set; } = true; 

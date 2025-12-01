@@ -129,25 +129,18 @@ namespace NetworkHighlightOverlay.Code.Core
         private static void RenderSegmentOverlay(
             RenderManager.CameraInfo cameraInfo,
             ref NetSegment segment,
-            Color color)
+            Color color
+            )
         {
             NetInfo info = segment.Info;
             if (info == null)
                 return;
 
-            Bezier3 bezier;
-            bezier.a = NetManager.instance.m_nodes.m_buffer[segment.m_startNode].m_position;
-            bezier.d = NetManager.instance.m_nodes.m_buffer[segment.m_endNode].m_position;
-            NetSegment.CalculateMiddlePoints(
-                bezier.a, segment.m_startDirection,
-                bezier.d, segment.m_endDirection,
-                true, true, out bezier.b, out bezier.c);
-
             Singleton<RenderManager>.instance.OverlayEffect.DrawBezier(
                 cameraInfo,
                 color,
-                bezier,
-                info.m_halfWidth * 2f,
+                GetBezierPoints(segment),
+                GetHighlightWidth(info), 
                 -100000f,   // no cut at start
                 -100000f,   // no cut at end
                 -100f,      // minY
@@ -155,7 +148,26 @@ namespace NetworkHighlightOverlay.Code.Core
                 false,
                 false);
         }
-
+        private static Bezier3 GetBezierPoints(NetSegment segment)
+        {
+            Bezier3 bezier;
+            bezier.a = NetManager.instance.m_nodes.m_buffer[segment.m_startNode].m_position;
+            bezier.d = NetManager.instance.m_nodes.m_buffer[segment.m_endNode].m_position;
+            
+            NetSegment.CalculateMiddlePoints(
+                bezier.a, segment.m_startDirection,
+                bezier.d, segment.m_endDirection,
+                true, true, out bezier.b, out bezier.c);
+            return bezier;
+        }
+        
+        private static float GetHighlightWidth(NetInfo info)
+        {
+            float widthFactor = ModSettings.HighlightWidth;
+            float highlightWidth = info.m_halfWidth * 2f * widthFactor;
+            return highlightWidth;
+        }
+        
         /// <summary>
         /// Central rule: given a segment and current ModSettings,
         /// decide if it should be highlighted and with which color.
