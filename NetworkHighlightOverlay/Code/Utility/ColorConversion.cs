@@ -10,9 +10,13 @@ namespace NetworkHighlightOverlay.Code.Utility
             return h;
         }
         
-        public static Color FromHue(float hue)
+        public static Color FromHue(float hue, float strength)
         {
-            return Color.HSVToRGB(hue, 1f, 1f);
+            var color = Color.HSVToRGB(hue, 1f, 1f);
+            
+            color.a = Mathf.Clamp01(strength);
+
+            return color;
         }
     }
 }
