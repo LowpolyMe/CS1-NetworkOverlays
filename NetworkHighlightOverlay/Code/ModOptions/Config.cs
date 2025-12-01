@@ -6,7 +6,7 @@ namespace NetworkHighlightOverlay.Code.ModOptions
     public class Config
     {
         public float HighlightStrength  { get; set; }  = 1f;
-        public float RoadsHue { get; set; } = 0.5f; 
+        public float HighlightWidth  { get; set; }     = 1.0f;
         public float PedestrianPathsHue { get; set; }  = 0.25f; 
         public float RoadsHue { get; set; }            = 0.5f; 
         public float HighwaysHue { get; set; } = 0.65f; 

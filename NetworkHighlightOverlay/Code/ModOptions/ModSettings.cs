@@ -36,6 +36,18 @@ namespace NetworkHighlightOverlay.Code.ModOptions
                 SaveAndRaise();
             }
         }
+        public static float HighlightWidth
+        {
+            get => _config.HighlightWidth;
+            set
+            {
+                if (Mathf.Approximately(_config.HighlightWidth, value))
+                    return;
+
+                _config.HighlightWidth = value;
+                SaveAndRaise();
+            }
+        }
         public static float PedestrianPathsHue
         {
             get => _config.PedestrianPathsHue;
@@ -329,6 +341,8 @@ namespace NetworkHighlightOverlay.Code.ModOptions
         public static void ResetToDefaults()
         {
             _config.HighlightStrength  = 1.0f;
+            _config.HighlightWidth     = 1.0f;
+            
             // Hues
             _config.PedestrianPathsHue = 0.25f;
             _config.RoadsHue           = 0.5f;
@@ -338,7 +352,7 @@ namespace NetworkHighlightOverlay.Code.ModOptions
             _config.TramTracksHue      = 0.85f;
             _config.MonorailHue        = 0.85f;
             _config.CableCarsHue       = 0.85f;
-
+            
             // Toggles
             _config.HighlightPedestrianPaths = true;
             _config.HighlightRoads           = true;

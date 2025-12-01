@@ -13,6 +13,7 @@ namespace NetworkHighlightOverlay.Code.ModOptions
 
         private Texture2D _hueTexture;
         private Texture2D _valueTexture;
+        private Texture2D _widthTexture;
 
         public void OnSettingsUI(UIHelperBase helper)
         {
@@ -25,6 +26,10 @@ namespace NetworkHighlightOverlay.Code.ModOptions
             if (_valueTexture == null)
             {
                 _valueTexture = ModResources.LoadTexture("ValueGradient.png");
+            }
+            if (_widthTexture == null)
+            {
+                _widthTexture = ModResources.LoadTexture("HighlightWidth.png");
             }
             
             // Some mods (e.g. Skyve) seem to replace the vanilla UIHelper with their own UIHelperBase implementation,
@@ -72,6 +77,14 @@ namespace NetworkHighlightOverlay.Code.ModOptions
                     ModSettings.HighlightStrength,
                     v => ModSettings.HighlightStrength = v,
                     _valueTexture);
+                
+                UIUtility.CreateHueSlider(
+                    colorsHelper,
+                    "Highlight Thickness",
+                    ModSettings.HighlightWidth,
+                    v => ModSettings.HighlightWidth = v,
+                    _widthTexture);
+                
                 UIUtility.CreateHueSlider(
                     colorsHelper,
                     "Pedestrian paths",
