@@ -5,6 +5,8 @@ It is useful for debugging, visual clarity, screenshots, and inspecting hidden /
 
 **This mod depends on Harmony 2 and Unified UI (UUI).**
 
+[Link to Steam Workshop Page]( https://steamcommunity.com/sharedfiles/filedetails/?id=3614208002)
+
 ## Features
 
 Highlights the following network types:
