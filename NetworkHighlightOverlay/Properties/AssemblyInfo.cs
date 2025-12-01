@@ -1,8 +1,8 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("NetworkHighlightOverlay")]
-[assembly: AssemblyDescription("Cities: Skylines mod that highlights pedestrian paths in the Traffic info view.")]
+[assembly: AssemblyDescription("Cities: Skylines mod that highlights various networks (paths, roads, rails, etc.) including hidden/invisible ones.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Lowpolyme")]
 [assembly: AssemblyProduct("NetworkHighlightOverlay")] 
